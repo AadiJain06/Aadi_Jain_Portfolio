@@ -1,73 +1,76 @@
-# Welcome to your Lovable project
+Aadi Jain's Portfolio
+About Me
+Hi, I'm Aadi Jain, a B.Tech (CSE) student at VIT University with a passion for technology and problem-solving. I specialize in computer vision, machine learning, and web development, with hands-on experience in projects like dementia prediction, face recognition systems, and agricultural analytics. I’m skilled in Python, ReactJS, OpenCV, and more, and I enjoy building impactful solutions that blend innovation and functionality.
 
-## Project info
+Email: aadijainadj@gmail.com  
+Phone: +91 7746910931  
+LinkedIn: linkedin.com/in/aadi-jain-96059724b  
+GitHub: github.com/AadiJain06
 
-**URL**: https://lovable.dev/projects/b63a59bd-93c9-4bee-b36f-37b4c00c4c6d
+Technical Skills
 
-## How can I edit this code?
+Programming Languages: Python, C, C++, JavaScript  
+Web Development: HTML, CSS, ReactJS, Flask, Streamlit  
+Databases & Tools: MySQL, SQLite, Power BI, Postman API  
+Other Skills: OpenCV, Data Structures & Algorithms, Machine Learning, Cloud Computing
 
-There are several ways of editing your application.
+Certifications
 
-**Use Lovable**
+MATLAB Onramp  
+Guvi Geek (IIT Madras)  
+Python Essentials  
+Cloud Computing (IIT Kharagpur)  
+Data Analytics (Accenture)  
+Postman API
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b63a59bd-93c9-4bee-b36f-37b4c00c4c6d) and start prompting.
+Education
 
-Changes made via Lovable will be committed automatically to this repo.
+B.Tech in Computer Science and EngineeringVIT University, June 2022 – Ongoing  
+Class XIIAP Public School, Farrukhabad, May 2022  
+Class XLittle Angels High School, Gwalior, May 2020
 
-**Use your preferred IDE**
+Featured Projects
+Dementia Prediction Model (Nov 2023 – Dec 2023)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Built a CNN-based model for early dementia detection using 1,000 MRI scans, improving accuracy by 18% through preprocessing and data augmentation.  
+Optimized training with Bayesian hyperparameter tuning and dropout regularization, reducing validation error by 12%.  
+Integrated SHAP for interpretability, enhancing clinical trust in predictions.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+FaceRecogl'ro (Feb 2024 – May 2024)
 
-Follow these steps:
+Developed an attendance system using OpenCV and dlib, achieving 90% offline accuracy for 100+ unique faces in varied lighting.  
+Achieved 20-30 FPS on Raspberry Pi simulations, reducing latency by 40%.  
+Designed a Flask dashboard with SQLite, automating attendance logging and cutting manual admin time by 80%.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+KrishiAI (June 2024 – May 2025)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Created a real-time crop monitoring dashboard using Streamlit and simulated IoT inputs for 10+ parameters.  
+Trained a crop yield forecasting model (MAE 0.1) for 3 major crops, improving yield planning efficiency by 15%.  
+Delivered a mobile-friendly UI, boosting decision-making accuracy by 12-15% through visual insights.
 
-# Step 3: Install the necessary dependencies.
-npm i
+Internship Experience
+Computer Vision Intern – EncurelT Systems Pvt Ltd (Feb 2025 – May 2025)
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Modernized anomaly detection using YOLOv12, improving precision by 45% and increasing throughput by 200 images per minute.  
+Automated inspection tasks for image-based datasets, streamlining workflows.
 
-**Edit a file directly in GitHub**
+Achievements & Extracurriculars
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Third Place in Blockchain Android App Competition at IIT Delhi Tryst (Jan 2019).  
+Selected participant in IEEE MOVE-A-THON 2023, focusing on innovative mobility solutions.  
+Competed in IGDTUW UI/UX Hackathon (Apr 2023), designing user-centric web solutions.  
+Organized a student-led environmental conservation event, engaging 200+ students.  
+Core Member of the Photography and Videography Club at AdVITya, producing event videos with a 75% engagement rate for 2000+ viewers.  
+Built a Google Assistant Trivia Game (Jan 2020) with a 90% user completion rate.
 
-**Use GitHub Codespaces**
+Languages
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+English  
+Hindi
 
-## What technologies are used for this project?
+Contact Me
+Feel free to reach out for collaboration, project inquiries, or just to connect!  
 
-This project is built with:
+Email: aadijainadj@gmail.com  
+LinkedIn: linkedin.com/in/aadi-jain-96059724b
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/b63a59bd-93c9-4bee-b36f-37b4c00c4c6d) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
