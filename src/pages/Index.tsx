@@ -66,8 +66,9 @@ const Index = () => {
                 <a href="https://linkedin.com/in/aadi-jain-96059724b" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <Linkedin size={24} />
                 </a>
-                <a href="mailto:aadijainadj@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
-                  <Mail size={24} />
+<a href="mailto:aadijainadj@gmail.com" class="text-muted-foreground hover:text-primary transition-colors">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+</a>
                 </a>
                 <a href="tel:+91 77469 10931" className="text-muted-foreground hover:text-primary transition-colors">
                   <Phone size={24} />
