@@ -11,6 +11,11 @@ import ExperienceCard from '@/components/ExperienceCard';
 import EducationCard from '@/components/EducationCard';
 import ContactForm from '@/components/ContactForm';
 
+// import SkillItem from './SkillItem'; // Adjust the path based on your file structure
+// import { Card } from '@/components/ui/card'; // Ensure this points to your Card.tsx
+import SkillItem from '@/components/SkillItem'; // Adjust the path based on your file structure
+// import { Card } from '@/components/ui/card';
+
 const Index = () => {
   // Initialize animation on scroll
   useEffect(() => {
@@ -108,54 +113,58 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-16 md:py-24">
-        <div className="section-container">
-          <h2 className="section-title animate-on-scroll">Technical Skills</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            <div className="space-y-6 animate-on-scroll">
-              <h3 className="text-xl font-bold mb-6">Programming Languages & Frameworks</h3>
-              <SkillBar name="Python" percentage={90} />
-              <SkillBar name="HTML/CSS/JavaScript" percentage={85} />
-              <SkillBar name="ReactJS" percentage={80} />
-              <SkillBar name="MySQL" percentage={85} />
-              <SkillBar name="C/C++" percentage={75} />
-            </div>
-            <div className="space-y-6 animate-on-scroll">
-              <h3 className="text-xl font-bold mb-6">Technologies & Tools</h3>
-              <SkillBar name="Machine Learning" percentage={85} />
-              <SkillBar name="Computer Vision" percentage={80} />
-              <SkillBar name="Data Structures" percentage={90} />
-              <SkillBar name="Power BI" percentage={75} />
-              <SkillBar name="REST APIs" percentage={85} />
-            </div>
-          </div>
-          
-          <div className="mt-16 max-w-4xl mx-auto animate-on-scroll">
-            <h3 className="text-xl font-bold mb-6 text-center">Certifications</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <Card className="p-4 text-center hover:shadow-md transition-all">
-                <p className="font-medium">Matlab Onramp</p>
-              </Card>
-              <Card className="p-4 text-center hover:shadow-md transition-all">
-                <p className="font-medium">Gayi Geek (IIT Madras)</p>
-              </Card>
-              <Card className="p-4 text-center hover:shadow-md transition-all">
-                <p className="font-medium">Python Essentials</p>
-              </Card>
-              <Card className="p-4 text-center hover:shadow-md transition-all">
-                <p className="font-medium">Cloud Computing (IIT Kharagpur)</p>
-              </Card>
-              <Card className="p-4 text-center hover:shadow-md transition-all">
-                <p className="font-medium">Data Analytics (Accenture)</p>
-              </Card>
-              <Card className="p-4 text-center hover:shadow-md transition-all">
-                <p className="font-medium">Postman API</p>
-              </Card>
-            </div>
-          </div>
+
+<section id="skills" className="py-16 md:py-24">
+  <div className="section-container">
+    <h2 className="section-title">Technical Skills</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+      <div className="space-y-6 animate-on-scroll">
+        <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Programming Languages & Frameworks</h3>
+        <div className="flex flex-wrap gap-3">
+          <SkillItem name="Python" index={0} />
+          <SkillItem name="HTML/CSS/JavaScript" index={1} />
+          <SkillItem name="ReactJS" index={2} />
+          <SkillItem name="MySQL" index={3} />
+          <SkillItem name="C/C++" index={4} />
         </div>
-      </section>
+      </div>
+      <div className="space-y-6 animate-on-scroll">
+        <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Technologies & Tools</h3>
+        <div className="flex flex-wrap gap-3">
+          <SkillItem name="Machine Learning" index={0} />
+          <SkillItem name="Computer Vision" index={1} />
+          <SkillItem name="Data Structures" index={2} />
+          <SkillItem name="Power BI" index={3} />
+          <SkillItem name="REST APIs" index={4} />
+        </div>
+      </div>
+    </div>
+    
+    <div className="mt-16 max-w-4xl mx-auto animate-on-scroll">
+      <h3 className="text-xl font-bold mb-6 text-center font-heading text-foreground">Certifications</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {[
+          "Matlab Onramp",
+          "Gayi Geek (IIT Madras)",
+          "Python Essentials",
+          "Cloud Computing (IIT Kharagpur)",
+          "Data Analytics (Accenture)",
+          "Postman API",
+        ].map((cert, index) => (
+          <Card
+            key={index}
+            className="p-4 text-center hover:shadow-md transition-all duration-300 animate-card"
+            style={{
+              animationDelay: `${index * 100}ms`,
+            }}
+          >
+            <p className="font-medium text-card-foreground">{cert}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Projects Section */}
       <section id="projects" className="py-16 md:py-24 bg-secondary/30">
