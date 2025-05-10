@@ -3,31 +3,50 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from '@/components/ui/sonner';
+import { sendContactForm } from '@/services/emailService';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
-      });
+    try {
+      // Send the form data to our email service
+      const success = await sendContactForm({ name, email, message });
       
-      setName('');
-      setEmail('');
-      setMessage('');
+      if (success) {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        
+        // Reset form
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        toast({
+          title: "Failed to send message",
+          description: "There was an error sending your message. Please try again later.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error in contact form submission:", error);
+      toast({
+        title: "Something went wrong",
+        description: "There was an unexpected error. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
