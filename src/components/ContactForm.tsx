@@ -21,8 +21,7 @@ const ContactForm = () => {
       const success = await sendContactForm({ name, email, message });
       
       if (success) {
-        toast({
-          title: "Message sent!",
+        toast.success("Message sent!", {
           description: "Thank you for reaching out. I'll get back to you soon.",
         });
         
@@ -31,18 +30,14 @@ const ContactForm = () => {
         setEmail('');
         setMessage('');
       } else {
-        toast({
-          title: "Failed to send message",
+        toast.error("Failed to send message", {
           description: "There was an error sending your message. Please try again later.",
-          variant: "destructive",
         });
       }
     } catch (error) {
       console.error("Error in contact form submission:", error);
-      toast({
-        title: "Something went wrong",
+      toast.error("Something went wrong", {
         description: "There was an unexpected error. Please try again later.",
-        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
