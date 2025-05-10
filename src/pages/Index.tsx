@@ -54,10 +54,10 @@ const Index = () => {
                   Contact Me
                 </Button>
                 <Button variant="outline" asChild>
-                  <a href="/Aadi-Jain-Resume.pdf" target="_blank" rel="noopener noreferrer">
-                    Download Resume
-                  </a>
-                </Button>
+  <a href="/Aadi_Jain.pdf" download rel="noopener noreferrer">
+    Download Resume
+  </a>
+</Button>
               </div>
               <div className="flex justify-center md:justify-start mt-8 space-x-4">
                 <a href="https://github.com/AadiJain06" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
@@ -66,10 +66,10 @@ const Index = () => {
                 <a href="https://linkedin.com/in/aadi-jain-96059724b" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <Linkedin size={24} />
                 </a>
-                <a href="mailto:aadijaind@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="mailto:aadijainadj@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                   <Mail size={24} />
                 </a>
-                <a href="tel:+919774610931" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="tel:+91 77469 10931" className="text-muted-foreground hover:text-primary transition-colors">
                   <Phone size={24} />
                 </a>
               </div>
@@ -78,7 +78,7 @@ const Index = () => {
               <div className="aspect-square rounded-full bg-gradient-to-br from-primary/20 to-primary/40 p-1">
                 <div className="w-full h-full rounded-full bg-card flex items-center justify-center overflow-hidden">
                   <img 
-                    src="/placeholder.svg" 
+                    src="\Profile.jpg" 
                     alt="Aadi Jain" 
                     className="w-full h-full object-cover"
                   />
@@ -308,14 +308,14 @@ const Index = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Mail className="text-primary" size={20} />
-                  <a href="mailto:aadijaind@gmail.com" className="hover:text-primary transition-colors">
-                    aadijaind@gmail.com
+                  <a href="mailto:aadijainadj@gmail.com" className="hover:text-primary transition-colors">
+                    aadijainadj@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="text-primary" size={20} />
-                  <a href="tel:+919774610931" className="hover:text-primary transition-colors">
-                    +91 97746 10931
+                  <a href="tel:+91 7746910931" className="hover:text-primary transition-colors">
+                    +91 77469 10931
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
@@ -364,7 +364,7 @@ const Index = () => {
               <a href="https://linkedin.com/in/aadi-jain-96059724b" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin size={20} />
               </a>
-              <a href="mailto:aadijaind@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:aadijainadj@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                 <Mail size={20} />
               </a>
             </div>
