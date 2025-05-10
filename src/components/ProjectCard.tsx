@@ -14,7 +14,7 @@ const ProjectCard = ({ title, date, description }: ProjectCardProps) => {
   return (
     <div 
       className={cn(
-        "bg-card border rounded-xl p-6 transition-all duration-300 hover:shadow-md",
+        "bg-card border rounded-xl p-6 transition-all duration-300 hover:shadow-md dark:border-border",
         "transform hover:-translate-y-1"
       )}
     >

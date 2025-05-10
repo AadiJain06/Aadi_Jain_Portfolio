@@ -1,118 +1,105 @@
 
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { MenuIcon, XIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  // Handle scroll event to change navbar appearance
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offsetPosition = element.offsetTop - 80; // Adjust offset to account for navbar height
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      setMobileMenuOpen(false);
-    }
-  };
+  const menuItems = [
+    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Education', href: '#education' },
+    { name: 'Contact', href: '#contact' },
+  ];
 
   return (
-    <nav
+    <header
       className={cn(
-        'fixed top-0 w-full z-50 transition-all duration-300',
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled 
-          ? 'bg-background/95 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
+          ? "bg-background/80 backdrop-blur-md shadow-sm border-b" 
+          : "bg-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <a href="#hero" className="font-bold text-xl font-heading text-primary">Aadi Jain</a>
-          </div>
-          
-          {/* Desktop navigation */}
-          <div className="hidden md:flex space-x-8">
-            <button onClick={() => scrollToSection('about')} className="text-foreground hover:text-primary font-medium transition-colors">
-              About
-            </button>
-            <button onClick={() => scrollToSection('skills')} className="text-foreground hover:text-primary font-medium transition-colors">
-              Skills
-            </button>
-            <button onClick={() => scrollToSection('projects')} className="text-foreground hover:text-primary font-medium transition-colors">
-              Projects
-            </button>
-            <button onClick={() => scrollToSection('experience')} className="text-foreground hover:text-primary font-medium transition-colors">
-              Experience
-            </button>
-            <button onClick={() => scrollToSection('education')} className="text-foreground hover:text-primary font-medium transition-colors">
-              Education
-            </button>
-            <button onClick={() => scrollToSection('contact')} className="text-foreground hover:text-primary font-medium transition-colors">
-              Contact
-            </button>
-          </div>
-          
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary focus:outline-none"
-            >
-              <svg 
-                className="h-6 w-6" 
-                xmlns="http://www.w3.org/2000/svg" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
+          {/* Logo */}
+          <a href="#" className="flex items-center">
+            <span className="text-xl font-bold text-foreground">
+              <span className="text-primary">Aadi</span> Jain
+            </span>
+          </a>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-6">
+            {menuItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
+                {item.name}
+              </a>
+            ))}
+            <div className="flex items-center ml-2">
+              <ThemeToggle />
+            </div>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center gap-4">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-foreground"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <XIcon className="h-6 w-6" />
+              ) : (
+                <MenuIcon className="h-6 w-6" />
+              )}
+            </Button>
           </div>
         </div>
       </div>
-      
-      {/* Mobile menu */}
-      <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-md shadow-lg">
-          <button onClick={() => scrollToSection('about')} className="block px-3 py-2 w-full text-left rounded-md text-foreground hover:bg-secondary hover:text-primary transition-colors">
-            About
-          </button>
-          <button onClick={() => scrollToSection('skills')} className="block px-3 py-2 w-full text-left rounded-md text-foreground hover:bg-secondary hover:text-primary transition-colors">
-            Skills
-          </button>
-          <button onClick={() => scrollToSection('projects')} className="block px-3 py-2 w-full text-left rounded-md text-foreground hover:bg-secondary hover:text-primary transition-colors">
-            Projects
-          </button>
-          <button onClick={() => scrollToSection('experience')} className="block px-3 py-2 w-full text-left rounded-md text-foreground hover:bg-secondary hover:text-primary transition-colors">
-            Experience
-          </button>
-          <button onClick={() => scrollToSection('education')} className="block px-3 py-2 w-full text-left rounded-md text-foreground hover:bg-secondary hover:text-primary transition-colors">
-            Education
-          </button>
-          <button onClick={() => scrollToSection('contact')} className="block px-3 py-2 w-full text-left rounded-md text-foreground hover:bg-secondary hover:text-primary transition-colors">
-            Contact
-          </button>
+
+      {/* Mobile Navigation */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-background border-b">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {menuItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </nav>
+      )}
+    </header>
   );
 };
 
