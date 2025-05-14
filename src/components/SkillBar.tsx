@@ -1,15 +1,12 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface SkillBarProps {
   name: string;
-  percentage: number;
 }
 
-const SkillBar = ({ name, percentage }: SkillBarProps) => {
+const SkillBar = ({ name }: SkillBarProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [value, setValue] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,26 +27,20 @@ const SkillBar = ({ name, percentage }: SkillBarProps) => {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (isVisible) {
-      setValue(percentage);
-    }
-  }, [isVisible, percentage]);
-
   return (
-    <div ref={ref} className="mb-6">
-      <div className="flex justify-between mb-1">
-        <span className="font-medium">{name}</span>
-        <span className="text-sm text-muted-foreground">{percentage}%</span>
-      </div>
-      <div className="progress-bar">
-        <div
-          className={cn(
-            "progress-bar-fill",
-            isVisible ? "opacity-100" : "opacity-0"
-          )}
-          style={{ width: `${value}%` }}
-        ></div>
+    <div
+      ref={ref}
+      className={cn(
+        'transition-all duration-500',
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      )}
+    >
+      <div
+        className={cn(
+          'glass-card animated-border px-4 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary transition-colors hover-lift animate-skill text-center'
+        )}
+      >
+        {name}
       </div>
     </div>
   );

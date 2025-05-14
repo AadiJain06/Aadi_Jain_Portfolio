@@ -1,4 +1,6 @@
+
 import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface SkillItemProps {
@@ -8,6 +10,7 @@ interface SkillItemProps {
 
 const SkillItem = ({ name, index }: SkillItemProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,21 +32,38 @@ const SkillItem = ({ name, index }: SkillItemProps) => {
   }, []);
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      className={cn(
-        "relative px-4 py-2 rounded-full bg-secondary text-secondary-foreground font-medium text-sm md:text-base transition-all duration-500 animate-skill",
-        isVisible ? "scale-100 opacity-100" : "scale-90 opacity-0"
-      )}
-      style={{
-        animationDelay: `${index * 100}ms`,
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+      transition={{ 
+        duration: 0.4, 
+        delay: index * 0.1,
+        type: "spring",
+        stiffness: 260,
+        damping: 20
       }}
+      whileHover={{ 
+        scale: 1.05,
+        transition: { duration: 0.2 }
+      }}
+      whileTap={{ scale: 0.95 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={cn(
+        "relative px-4 py-2 rounded-full font-medium text-sm md:text-base",
+        "bg-secondary/80 backdrop-blur-sm text-secondary-foreground",
+        "border border-transparent transition-all duration-300",
+        isHovered ? "border-primary shadow-sm" : ""
+      )}
     >
       {name}
-      <span
-        className="absolute inset-0 rounded-full bg-primary opacity-0 hover:opacity-20 transition-opacity duration-300"
-      ></span>
-    </div>
+      <motion.div
+        initial={false}
+        animate={isHovered ? { opacity: 0.15 } : { opacity: 0 }}
+        className="absolute inset-0 bg-primary rounded-full"
+      />
+    </motion.div>
   );
 };
 

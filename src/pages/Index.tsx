@@ -1,22 +1,28 @@
-
-import { useEffect } from 'react';
-import { Github, Linkedin, Mail, Phone } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Github, Linkedin, Mail, Phone, ChevronDown, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Navbar from '@/components/Navbar';
+import SkillItem from '@/components/SkillItem';
 import SkillBar from '@/components/SkillBar';
 import ProjectCard from '@/components/ProjectCard';
 import ExperienceCard from '@/components/ExperienceCard';
 import EducationCard from '@/components/EducationCard';
 import ContactForm from '@/components/ContactForm';
-
-// import SkillItem from './SkillItem'; // Adjust the path based on your file structure
-// import { Card } from '@/components/ui/card'; // Ensure this points to your Card.tsx
-import SkillItem from '@/components/SkillItem'; // Adjust the path based on your file structure
-// import { Card } from '@/components/ui/card';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import SkillsCube from '@/components/SkillsCube';
+import SectionHeading from '@/components/SectionHeading';
 
 const Index = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  
+  // Parallax effect
+  const { scrollYProgress } = useScroll();
+  const heroImageY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
+  
   // Initialize animation on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,142 +42,262 @@ const Index = () => {
       observer.observe(el);
     });
 
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
+
+  // Scroll to next section
+  const scrollToNextSection = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
       {/* Hero Section */}
-      <section id="hero" className="pt-28 md:pt-36 pb-16 md:pb-24">
-        <div className="section-container">
+      <section 
+        id="hero" 
+        ref={heroRef}
+        className="relative min-h-screen flex items-center pt-16 overflow-hidden"
+      >
+        <AnimatedBackground />
+        
+        <div className="section-container relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
             <div className="flex-1 text-center md:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-4">
-                Aadi <span className="text-primary">Jain</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-                Computer Science Engineer & ML Enthusiast
-              </p>
-              <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                <Button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-5xl md:text-6xl lg:text-7xl font-bold font-heading mb-6"
+              >
+                <span>Aadi </span>
+                <span className="text-gradient">Jain</span>
+              </motion.h1>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-xl md:text-2xl text-muted-foreground mb-8"
+              >
+                <span className="typewriter">Computer Science Engineer & ML Enthusiast</span>
+              </motion.p>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex flex-wrap justify-center md:justify-start gap-4"
+              >
+                <Button 
+                  size="lg"
+                  className="animated-border"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                >
                   Contact Me
                 </Button>
-                <Button variant="outline" asChild>
-  <a href="/Aadi_Jain.pdf" download rel="noopener noreferrer">
-    Download Resume
-  </a>
-</Button>
-              </div>
-              <div className="flex justify-center md:justify-start mt-8 space-x-4">
-                <a href="https://github.com/AadiJain06" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Button variant="outline" size="lg" asChild>
+                  <a href="/Aadi_Jain.pdf" download rel="noopener noreferrer" className="group">
+                    Download Resume
+                    <Download size={16} className="ml-2 group-hover:translate-y-1 transition-transform" />
+                  </a>
+                </Button>
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.8 }}
+                className="flex justify-center md:justify-start mt-8 space-x-6"
+              >
+                <a href="https://github.com/AadiJain06" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary hover:scale-110 transition-all">
                   <Github size={24} />
                 </a>
-                <a href="https://linkedin.com/in/aadi-jain-96059724b" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://linkedin.com/in/aadi-jain-96059724b" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary hover:scale-110 transition-all">
                   <Linkedin size={24} />
                 </a>
-<a href="mailto:aadijainadj@gmail.com" class="text-muted-foreground hover:text-primary transition-colors">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aadijainadj@gmail.com" className="text-muted-foreground hover:text-primary hover:scale-110 transition-all">
+                  <Mail size={24} />
                 </a>
-                <a href="tel:+91 77469 10931" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="tel:+91 77469 10931" className="text-muted-foreground hover:text-primary hover:scale-110 transition-all">
                   <Phone size={24} />
                 </a>
-              </div>
+              </motion.div>
             </div>
-            <div className="flex-1 max-w-md">
-              <div className="aspect-square rounded-full bg-gradient-to-br from-primary/20 to-primary/40 p-1">
-                <div className="w-full h-full rounded-full bg-card flex items-center justify-center overflow-hidden">
+            
+            <motion.div 
+              className="flex-1 max-w-md relative"
+              style={{ y: heroImageY }}
+            >
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="rounded-full p-1 glass-card animate-float"
+              >
+                <div className="w-full aspect-square rounded-full bg-gradient-to-br from-primary/30 to-primary/5 flex items-center justify-center overflow-hidden">
                   <img 
-                    src="\Profile.jpg" 
+                    src="/Profile.jpg" 
                     alt="Aadi Jain" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                   />
                 </div>
-              </div>
-            </div>
+              </motion.div>
+              
+              {/* Decorative elements */}
+              <div className="absolute -top-8 -right-8 w-16 h-16 bg-primary/20 rounded-full blur-xl" />
+              <div className="absolute -bottom-8 -left-8 w-20 h-20 bg-primary/20 rounded-full blur-xl" />
+            </motion.div>
           </div>
+          
+          {/* Scroll indicator */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 1 }}
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+          >
+            <span className="text-sm text-muted-foreground mb-2">Scroll to discover</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+            >
+              <ChevronDown className="text-primary" size={24} onClick={scrollToNextSection} />
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 md:py-24 bg-secondary/30">
+      <section id="about" className="py-20 md:py-32 bg-gradient-to-b from-background to-secondary/20">
         <div className="section-container">
-          <h2 className="section-title animate-on-scroll">About Me</h2>
-          <div className="max-w-3xl mx-auto text-center animate-on-scroll">
-            <p className="text-lg mb-6">
-              I am a Computer Science Engineer with a passion for building innovative solutions using machine learning and computer vision. Currently pursuing B.Tech in Computer Science at VIT University, I specialize in developing applications that leverage cutting-edge technologies for real-world problems.
-            </p>
-            <p className="text-lg mb-6">
-              With expertise in Python, Machine Learning, Computer Vision, and Web Development, I have worked on projects ranging from dementia detection using CNN models to real-time recognition systems and mobile applications for agricultural improvements.
-            </p>
-            <p className="text-lg">
-              I'm enthusiastic about collaborative environments where I can contribute my technical skills and creative problem-solving approach to develop solutions that make a difference.
-            </p>
+          <SectionHeading>About Me</SectionHeading>
+          
+          <div className="max-w-3xl mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="space-y-6 text-center"
+            >
+              <p className="text-lg">
+                I am a <span className="font-semibold text-primary">Computer Science Engineer</span> with a passion for building innovative solutions using machine learning and computer vision. Currently pursuing B.Tech in Computer Science at VIT University, I specialize in developing applications that leverage cutting-edge technologies for real-world problems.
+              </p>
+              
+              <p className="text-lg">
+                With expertise in <span className="font-semibold">Python, Machine Learning, Computer Vision,</span> and <span className="font-semibold">Web Development</span>, I have worked on projects ranging from dementia detection using CNN models to real-time recognition systems and mobile applications for agricultural improvements.
+              </p>
+              
+              <p className="text-lg">
+                I'm enthusiastic about collaborative environments where I can contribute my <span className="font-semibold">technical skills</span> and <span className="font-semibold">creative problem-solving</span> approach to develop solutions that make a difference.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
 
-
-<section id="skills" className="py-16 md:py-24">
+{/* Skills Section */}
+<section id="skills" className="py-20 md:py-32">
   <div className="section-container">
-    <h2 className="section-title">Technical Skills</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-      <div className="space-y-6 animate-on-scroll">
-        <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Programming Languages & Frameworks</h3>
-        <div className="flex flex-wrap gap-3">
-          <SkillItem name="Python" index={0} />
-          <SkillItem name="HTML/CSS/JavaScript" index={1} />
-          <SkillItem name="ReactJS" index={2} />
-          <SkillItem name="MySQL" index={3} />
-          <SkillItem name="C/C++" index={4} />
+    <SectionHeading>Technical Skills</SectionHeading>
+    
+    {/* 3D Skills Cube */}
+    <SkillsCube skills={["Python", "Machine Learning", "Computer Vision", "React", "Data Structures", "APIs"]} />
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto mt-16">
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="space-y-6"
+      >
+        <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Programming Languages</h3>
+        <div className="space-y-3">
+          <SkillBar name="Python" />
+          <SkillBar name="HTML/CSS/JavaScript" />
+          <SkillBar name="ReactJS" />
+          <SkillBar name="MySQL" />
+          <SkillBar name="C/C++" />
         </div>
-      </div>
-      <div className="space-y-6 animate-on-scroll">
+      </motion.div>
+      
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="space-y-6"
+      >
         <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Technologies & Tools</h3>
-        <div className="flex flex-wrap gap-3">
-          <SkillItem name="Machine Learning" index={0} />
-          <SkillItem name="Computer Vision" index={1} />
-          <SkillItem name="Data Structures" index={2} />
-          <SkillItem name="Power BI" index={3} />
-          <SkillItem name="REST APIs" index={4} />
+        <div className="space-y-3">
+          <SkillBar name="Machine Learning" />
+          <SkillBar name="Computer Vision" />
+          <SkillBar name="Data Structures" />
+          <SkillBar name="Power BI" />
+          <SkillBar name="REST APIs" />
         </div>
-      </div>
+      </motion.div>
     </div>
     
-    <div className="mt-16 max-w-4xl mx-auto animate-on-scroll">
-      <h3 className="text-xl font-bold mb-6 text-center font-heading text-foreground">Certifications</h3>
+    <div className="mt-20 max-w-4xl mx-auto">
+      <h3 className="text-xl font-bold mb-8 text-center font-heading text-foreground">Certifications</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {[
           "Matlab Onramp",
-          "Gayi Geek (IIT Madras)",
+          "Guvi Geek (IIT Madras)",
           "Python Essentials",
           "Cloud Computing (IIT Kharagpur)",
           "Data Analytics (Accenture)",
           "Postman API",
         ].map((cert, index) => (
-          <Card
+          <motion.div
             key={index}
-            className="p-4 text-center hover:shadow-md transition-all duration-300 animate-card"
-            style={{
-              animationDelay: `${index * 100}ms`,
-            }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            whileHover={{ scale: 1.03 }}
+            className="hover-lift"
           >
-            <p className="font-medium text-card-foreground">{cert}</p>
-          </Card>
+            <Card className="p-4 text-center glass-card animated-border">
+              <p className="font-medium text-card-foreground">{cert}</p>
+            </Card>
+          </motion.div>
         ))}
       </div>
     </div>
   </div>
 </section>
-
       {/* Projects Section */}
-      <section id="projects" className="py-16 md:py-24 bg-secondary/30">
-        <div className="section-container">
-          <h2 className="section-title animate-on-scroll">Projects</h2>
+      <section id="projects" className="py-20 md:py-32 bg-gradient-to-b from-secondary/20 to-background relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute -top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="section-container relative z-10">
+          <SectionHeading>Projects</SectionHeading>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="animate-on-scroll">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="hover-lift"
+            >
               <ProjectCard 
                 title="Dementia Prediction" 
                 date="Nov 23-Dec 23" 
@@ -180,9 +306,17 @@ const Index = () => {
                   "Optimized training via Bayesian hyperparameter tuning and dropout regularization, reducing validation error by 12% and boosting generalization.",
                   "Integrated SHAP for model interpretability, increasing clinical trust and usability by presenting explainable insights for 100% predictions."
                 ]} 
+                technologies={["CNN", "Python", "TensorFlow", "Data Augmentation", "SHAP"]}
               />
-            </div>
-            <div className="animate-on-scroll">
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="hover-lift"
+            >
               <ProjectCard 
                 title="FaceRecogPro" 
                 date="Feb 24-May 24" 
@@ -190,9 +324,17 @@ const Index = () => {
                   "Streamlined real-time recognition pipeline, achieving a consistent 20-30 FPS on low-powered Raspberry Pi installations, reducing latency by 40%.",
                   "Developed a Flask backend with SQLite backend, automating attendance logging and report generation, cutting manual effort time by 90%."
                 ]} 
+                technologies={["OpenCV", "Flask", "SQLite", "Raspberry Pi", "Face Recognition"]}
               />
-            </div>
-            <div className="animate-on-scroll">
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="hover-lift"
+            >
               <ProjectCard 
                 title="KrishiAI" 
                 date="June 24-May 25" 
@@ -201,27 +343,42 @@ const Index = () => {
                   "Trained a crop yield forecasting model (MAE 0.3) tested on 3 major crops, and improved simulated yield predictions by 15%.",
                   "Delivered a localized, mobile-friendly UI, helping improve user decision-making accuracy in agricultural simulations by 22-25% through visual insights."
                 ]} 
+                technologies={["AI/ML", "Streamlit", "IoT", "Data Visualization", "Mobile UI"]}
               />
-            </div>
-            <div className="animate-on-scroll">
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="hover-lift"
+            >
               <ProjectCard 
                 title="Google Assistant Trivia Game" 
                 date="Jan 20" 
                 description={[
                   "Developed a voice-controlled AI quiz on Google's Actions platform, achieving a 90% user completion rate for the quizzes and identified key insights into user engagement with voice applications."
                 ]} 
+                technologies={["Google Actions", "Voice AI", "JavaScript", "UX Design"]}
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-16 md:py-24">
+      <section id="experience" className="py-20 md:py-32">
         <div className="section-container">
-          <h2 className="section-title animate-on-scroll">Work Experience</h2>
+          <SectionHeading>Work Experience</SectionHeading>
+          
           <div className="max-w-4xl mx-auto">
-            <div className="animate-on-scroll">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <ExperienceCard 
                 company="EncureIT Systems Pvt Ltd" 
                 position="Computer Vision Intern" 
@@ -231,51 +388,81 @@ const Index = () => {
                   "Implemented an advanced object detection pipeline using YOLOv2, improving anomaly detection by 45% and automating inspection tasks for image-based datasets."
                 ]} 
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Education Section */}
-      <section id="education" className="py-16 md:py-24 bg-secondary/30">
-        <div className="section-container">
-          <h2 className="section-title animate-on-scroll">Education</h2>
+      <section id="education" className="py-20 md:py-32 bg-gradient-to-b from-background to-secondary/20 relative">
+        {/* Background decorative elements */}
+        <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-20 right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="section-container relative z-10">
+          <SectionHeading>Education</SectionHeading>
+          
           <div className="max-w-4xl mx-auto">
-            <div className="animate-on-scroll">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <EducationCard 
                 degree="B. Tech (CSE)" 
                 institution="VIT University" 
                 date="June 2022 - Present" 
                 score="8.75/10"
               />
-            </div>
-            <div className="animate-on-scroll">
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               <EducationCard 
                 degree="Class XII" 
                 institution="AP Public School, Farrukhabad" 
                 date="May 2022" 
                 score="88%"
               />
-            </div>
-            <div className="animate-on-scroll">
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               <EducationCard 
                 degree="Class X" 
                 institution="Little Angels High School, Gwalior" 
                 date="May 2020" 
                 score="93.2%"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Achievement Section */}
-      <section id="achievements" className="py-16 md:py-24">
+      <section id="achievements" className="py-20 md:py-32">
         <div className="section-container">
-          <h2 className="section-title animate-on-scroll">Achievements</h2>
+          <SectionHeading>Achievements</SectionHeading>
+          
           <div className="max-w-4xl mx-auto space-y-8">
-            <div className="bg-card border rounded-xl p-6 animate-on-scroll">
-              <h3 className="text-xl font-bold mb-4">Competitions & Hackathons</h3>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-card border rounded-xl p-8 hover-lift animated-border"
+            >
+              <h3 className="text-xl font-bold mb-6 text-gradient">Competitions & Hackathons</h3>
               <ul className="list-disc list-inside space-y-4">
                 <li className="text-muted-foreground">
                   <span className="text-foreground font-medium">Secured First Place:</span> Blockchain Android App Competition at IIT Delhi Tryst (Jan '19), developing a decentralized mobile solution for secure data management.
@@ -287,10 +474,16 @@ const Index = () => {
                   <span className="text-foreground font-medium">Competed:</span> IGDTUW UI/UX Hackathon (Apr '23), designing user-centric web solutions under time constraints.
                 </li>
               </ul>
-            </div>
+            </motion.div>
             
-            <div className="bg-card border rounded-xl p-6 animate-on-scroll">
-              <h3 className="text-xl font-bold mb-4">Leadership & Responsibilities</h3>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-card border rounded-xl p-8 hover-lift animated-border"
+            >
+              <h3 className="text-xl font-bold mb-6 text-gradient">Leadership & Responsibilities</h3>
               <ul className="list-disc list-inside space-y-4">
                 <li className="text-muted-foreground">
                   Conceptualized and executed a student-led environmental conservation event, featuring tree bug and stone painting competitions, directly engaging 200+ students and fostering awareness of ecological responsibility.
@@ -299,37 +492,56 @@ const Index = () => {
                   As a Core Member of the Photography and Videography Club within AdVITya, led production of high-impact event videos, reaching diverse audience across platforms with 75% engagement rate.
                 </li>
               </ul>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 md:py-24 bg-secondary/30">
-        <div className="section-container">
-          <h2 className="section-title animate-on-scroll">Contact Me</h2>
+      <section id="contact" className="py-20 md:py-32 bg-gradient-to-b from-secondary/20 to-background relative">
+        {/* Background decorative elements */}
+        <div className="absolute bottom-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="section-container relative z-10">
+          <SectionHeading>Contact Me</SectionHeading>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            <div className="animate-on-scroll">
-              <h3 className="text-xl font-bold mb-6">Get In Touch</h3>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-xl font-bold mb-6 text-gradient">Get In Touch</h3>
               <p className="text-muted-foreground mb-8">
                 Have a question or want to work together? Feel free to contact me using the form or through any of the channels below.
               </p>
               
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Mail className="text-primary" size={20} />
-                  <a href="mailto:aadijainadj@gmail.com" className="hover:text-primary transition-colors">
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 group hover-lift">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Mail className="text-primary group-hover:scale-110 transition-transform" size={18} />
+                  </div>
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aadijainadj@gmail.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
                     aadijainadj@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="text-primary" size={20} />
+                
+                <div className="flex items-center gap-4 group hover-lift">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Phone className="text-primary group-hover:scale-110 transition-transform" size={18} />
+                  </div>
                   <a href="tel:+91 7746910931" className="hover:text-primary transition-colors">
                     +91 77469 10931
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Linkedin className="text-primary" size={20} />
+                
+                <div className="flex items-center gap-4 group hover-lift">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Linkedin className="text-primary group-hover:scale-110 transition-transform" size={18} />
+                  </div>
                   <a 
                     href="https://linkedin.com/in/aadi-jain-96059724b" 
                     target="_blank" 
@@ -339,8 +551,11 @@ const Index = () => {
                     linkedin.com/in/aadi-jain-96059724b
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Github className="text-primary" size={20} />
+                
+                <div className="flex items-center gap-4 group hover-lift">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Github className="text-primary group-hover:scale-110 transition-transform" size={18} />
+                  </div>
                   <a 
                     href="https://github.com/AadiJain06" 
                     target="_blank" 
@@ -351,11 +566,17 @@ const Index = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="animate-on-scroll">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="glass-card p-6 rounded-xl"
+            >
               <ContactForm />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -364,20 +585,31 @@ const Index = () => {
       <footer className="bg-background py-8 border-t">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground">
-              &copy; {new Date().getFullYear()} Aadi Jain. All rights reserved.
-            </p>
-            <div className="flex space-x-4 mt-4 md:mt-0">
-              <a href="https://github.com/AadiJain06" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-muted-foreground"
+            >
+              © {new Date().getFullYear()} Aadi Jain. All rights reserved.
+            </motion.p>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="flex space-x-4 mt-4 md:mt-0"
+            >
+              <a href="https://github.com/AadiJain06" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary hover:scale-110 transition-all">
                 <Github size={20} />
               </a>
-              <a href="https://linkedin.com/in/aadi-jain-96059724b" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://linkedin.com/in/aadi-jain-96059724b" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary hover:scale-110 transition-all">
                 <Linkedin size={20} />
               </a>
-              <a href="mailto:aadijainadj@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aadijainadj@gmail.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary hover:scale-110 transition-all">
                 <Mail size={20} />
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
       </footer>
