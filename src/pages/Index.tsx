@@ -58,6 +58,9 @@ const Index = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Define core technical skills for the 3D cube
+  const coreSkills = ["Python", "Machine Learning", "Computer Vision", "React", "Data Structures", "APIs"];
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -206,79 +209,84 @@ const Index = () => {
         </div>
       </section>
 
-{/* Skills Section */}
-<section id="skills" className="py-20 md:py-32">
-  <div className="section-container">
-    <SectionHeading>Technical Skills</SectionHeading>
-    
-    {/* 3D Skills Cube */}
-    <SkillsCube skills={["Python", "Machine Learning", "Computer Vision", "React", "Data Structures", "APIs"]} />
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto mt-16">
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="space-y-6"
-      >
-        <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Programming Languages</h3>
-        <div className="space-y-3">
-          <SkillBar name="Python" />
-          <SkillBar name="HTML/CSS/JavaScript" />
-          <SkillBar name="ReactJS" />
-          <SkillBar name="MySQL" />
-          <SkillBar name="C/C++" />
+      {/* Skills Section */}
+      <section id="skills" className="py-20 md:py-32">
+        <div className="section-container">
+          <SectionHeading>Technical Skills</SectionHeading>
+          
+          {/* 3D Skills Cube */}
+          <SkillsCube skills={coreSkills} />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto mt-16">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Programming Languages</h3>
+              <div className="space-y-3">
+                <SkillBar name="Python" />
+                <SkillBar name="HTML/CSS/JavaScript" />
+                <SkillBar name="ReactJS" />
+                <SkillBar name="MySQL" />
+                <SkillBar name="C/C++" />
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Technologies & Tools</h3>
+              <div className="space-y-3">
+                <SkillBar name="Machine Learning" />
+                <SkillBar name="Computer Vision" />
+                <SkillBar name="Data Structures" />
+                <SkillBar name="Power BI" />
+                <SkillBar name="REST APIs" />
+              </div>
+            </motion.div>
+          </div>
+          
+          <div className="mt-20 max-w-4xl mx-auto">
+            <h3 className="text-xl font-bold mb-8 text-center font-heading text-foreground">Certifications</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {[
+                "Matlab Onramp",
+                "Guvi Geek (IIT Madras)",
+                "Python Essentials",
+                "Cloud Computing (IIT Kharagpur)",
+                "Data Analytics (Accenture)",
+                "Postman API",
+              ].map((cert, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                  className="group"
+                >
+                  <Card className="p-6 text-center glass-card h-full flex items-center justify-center relative overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div className="z-10 relative">
+                      <p className="font-medium text-card-foreground group-hover:text-primary transition-colors">{cert}</p>
+                    </div>
+                    <div className="absolute -inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-primary/5 opacity-0 group-hover:opacity-100 blur-xl transition-all duration-300"></div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
-      </motion.div>
+      </section>
       
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        viewport={{ once: true }}
-        className="space-y-6"
-      >
-        <h3 className="text-xl font-bold mb-6 font-heading text-foreground">Technologies & Tools</h3>
-        <div className="space-y-3">
-          <SkillBar name="Machine Learning" />
-          <SkillBar name="Computer Vision" />
-          <SkillBar name="Data Structures" />
-          <SkillBar name="Power BI" />
-          <SkillBar name="REST APIs" />
-        </div>
-      </motion.div>
-    </div>
-    
-    <div className="mt-20 max-w-4xl mx-auto">
-      <h3 className="text-xl font-bold mb-8 text-center font-heading text-foreground">Certifications</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {[
-          "Matlab Onramp",
-          "Guvi Geek (IIT Madras)",
-          "Python Essentials",
-          "Cloud Computing (IIT Kharagpur)",
-          "Data Analytics (Accenture)",
-          "Postman API",
-        ].map((cert, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            whileHover={{ scale: 1.03 }}
-            className="hover-lift"
-          >
-            <Card className="p-4 text-center glass-card animated-border">
-              <p className="font-medium text-card-foreground">{cert}</p>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
       {/* Projects Section */}
       <section id="projects" className="py-20 md:py-32 bg-gradient-to-b from-secondary/20 to-background relative overflow-hidden">
         {/* Background decorative elements */}
@@ -351,16 +359,18 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="hover-lift"
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="hover-lift md:col-span-2"
             >
               <ProjectCard 
-                title="Google Assistant Trivia Game" 
-                date="Jan 20" 
+                title="BeyondEVENTS" 
+                date="Jan 23-Apr 23" 
                 description={[
-                  "Developed a voice-controlled AI quiz on Google's Actions platform, achieving a 90% user completion rate for the quizzes and identified key insights into user engagement with voice applications."
+                  "Created a full-stack event management platform with dynamic registration flows, payment integration, and automated communications.",
+                  "Implemented real-time analytics dashboard tracking attendance, engagement metrics, and feedback patterns across multiple event categories.",
+                  "Designed a mobile-responsive interface with contextual navigation and accessibility features, boosting user satisfaction by 37%."
                 ]} 
-                technologies={["Google Actions", "Voice AI", "JavaScript", "UX Design"]}
+                technologies={["React", "Node.js", "MongoDB", "Payment APIs", "Real-time Analytics"]}
               />
             </motion.div>
           </div>
